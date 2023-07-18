@@ -32,7 +32,17 @@ class FlaskApiTests(unittest.TestCase):
         self.assertEqual(response.status_code, 409)
         #print(response.get_data(as_text=True))
         # Add more assertions to test the response data
-
+    def test_update_product(self):
+        response = self.client.put('/product/1', data={
+            'category': 'Electronics',
+            'name': 'Updated iPhone',
+            'price': '1099.99',
+            'quantity': '5',
+            'date_added': '2023-07-15'
+        })
+        self.assertEqual(response.status_code, 200)
+        # Add more assertions to test the response data
+        
     def test_filter_by_category(self): 
         response = self.client.get('/category/Electronics')
         self.assertEqual(response.status_code, 200)
@@ -50,6 +60,11 @@ class FlaskApiTests(unittest.TestCase):
 
     def test_display_inventory(self):
         response = self.client.get('/inventory')
+        self.assertEqual(response.status_code, 200)
+        # Add more assertions to test the response data
+
+    def test_delete_product(self):
+        response = self.client.delete('/product/1')
         self.assertEqual(response.status_code, 200)
         # Add more assertions to test the response data
 
